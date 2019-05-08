@@ -6,7 +6,7 @@
 #include <vector>
 using namespace std;
 
-void sort_2_3(int* arr, int p, int q, int* arr_min_max) {
+void Max_Min_2_3(int* arr, int p, int q, int* arr_min_max) {
 	int n2 = q - p + 1;
 	int len = 0;
 	if (n2 == 2) {
@@ -23,27 +23,29 @@ void sort_2_3(int* arr, int p, int q, int* arr_min_max) {
 			arr_min_max[1] = arr[i];
 		}
 	}
+	cout << "分治结果:";
+	cout << arr_min_max[0] << " " << arr_min_max[1] << endl;
 }
 
 void sqrt_n_sort(int* arr, int p, int q, int* arr_min_max) {
-	cout << "deviation" << endl;
+	//cout << " " << endl;
 	int n = q - p + 1;
 	int n2 = int(sqrt(n));
 	if (n2 > 1) {
 		int i = 0;
 		for (; i < n2 - 1; i++) {
-			cout << p + n2 * i << "," << p + n2 * (i + 1) - 1 << endl;
+			cout << "从" << p + n2 * i << "到" << p + n2 * (i + 1) - 1 << endl;
 			sqrt_n_sort(arr, p + n2 * i, p + n2 * (i + 1) - 1, arr_min_max);
-			//sort_2_3(arr, p + n2*i, p + n2*(i+1) - 1);
+			//Max_Min_2_3(arr, p + n2*i, p + n2*(i+1) - 1);
 		}
-		cout << p + n2 * i << "," << q << endl;
+		cout << "从"<<p + n2 * i << "到" << q << endl;
 		sqrt_n_sort(arr, p + n2 * i, q, arr_min_max);
-		//sort_2_3(arr, p + n2*i, q);
+		//Max_Min_2_3(arr, p + n2*i, q);
 		//Merge(arr, p, q);
 		//Max_MIN()
 	}
 	else {
-		sort_2_3(arr, p, q, arr_min_max);
+		Max_Min_2_3(arr, p, q, arr_min_max);
 	}
 }
 
@@ -55,10 +57,9 @@ int main()
 	int arr_min_max[2] = { INT_MAX,INT_MIN };
 	sqrt_n_sort(&arr[0], 0, 16, &arr_min_max[0]);
 
-	//cout<<"begin:"<<endl;
-	for (int i = 0; i < 2; i++) {
-		cout << arr_min_max[i] << " " << endl;
-	}
+	cout<<"最终结果:"<<endl;
+	cout << "最小值：" << arr_min_max[0] << endl;
+	cout << "最大值：" << arr_min_max[1] << endl;
 	return 0;
 }
 
